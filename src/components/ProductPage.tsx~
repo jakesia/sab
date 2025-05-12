@@ -1,0 +1,38 @@
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { products } from '../data/products';
+
+const ProductPage = () => {
+  console.log('ProductPage rendered!');
+
+  const { id } = useParams();
+  const product = products.find((product) => product.id === parseInt(id));
+
+  if (!product) {
+    return <div className="animate-fade-in">Product not found</div>;
+  }
+
+  return (
+    <div className="product-page animate-fade-in">
+      <div className="hero-content">
+        <h1 className="product-title">{product.name}</h1>
+        <p className="product-price">{product.price}</p>
+        <div className="product-image-wrapper">
+          <img
+            className="product-image"
+            src={product.imageUrl}
+            alt={product.name}
+          />
+        </div>
+        <p className="product-description">{product.description}</p>
+        <div className="product-buttons">
+          <button className="primary" onClick={() => alert('Added to Cart!')}>Add to Cart</button>
+          <button className="primary" onClick={() => alert('Purchased!')}>Buy Now</button>
+          <button className="primary" onClick={() => alert('Added to Wishlist!')}>Add to Wishlist</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProductPage;
